@@ -33,17 +33,5 @@ public class Chip8_Panel extends JPanel {
                 g.fillRect(x*scale, y*scale, scale, scale);
             }
         }
-        
-        /*
-        for (int i = 0; i < display.length; i++) {
-            if (display[i] == 0) {
-                g.setColor(Color.BLACK);
-            } else {
-                g.setColor(Color.WHITE);
-            }
-            int x = (i%64);
-            int y = (int) Math.floor(i / 64);
-            g.fillRect(x*scale, y*scale, scale, scale);
-        }*/
     }
 }

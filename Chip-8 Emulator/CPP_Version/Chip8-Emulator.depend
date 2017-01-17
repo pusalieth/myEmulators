@@ -211,26 +211,34 @@
 	<iostream>
 	<time.h>
 
-1484626797 source:c:\users\data\desktop\chip-8 emulator\cpp_version\main.cpp
+1484633509 source:c:\users\data\desktop\chip-8 emulator\cpp_version\main.cpp
 	<cstdlib>
 	<stdlib.h>
 	<iostream>
 	<SDL/SDL.h>
 	<Hardware.h>
+	<Keyboard.h>
 	<string>
 	<thread>
 
 1470172583 c:\users\data\desktop\chip-8 emulator\cpp_version\include\memory.h
 
-1484620359 c:\users\data\desktop\chip-8 emulator\cpp_version\include\hardware.h
-	"Hardware.h"
+1484633065 c:\users\data\desktop\chip-8 emulator\cpp_version\include\hardware.h
 	<string>
 
-1484625020 source:c:\users\data\desktop\chip-8 emulator\cpp_version\src\hardware.cpp
+1484629612 source:c:\users\data\desktop\chip-8 emulator\cpp_version\src\hardware.cpp
 	"Hardware.h"
 	<array>
 	<fstream>
 	<random>
 	<iostream>
 	<time.h>
+
+1484633538 c:\users\data\desktop\chip-8 emulator\cpp_version\include\keyboard.h
+	"Hardware.h"
+
+1484633355 source:c:\users\data\desktop\chip-8 emulator\cpp_version\src\keyboard.cpp
+	"Keyboard.h"
+	<SDL/SDL.h>
+	<iostream>
 

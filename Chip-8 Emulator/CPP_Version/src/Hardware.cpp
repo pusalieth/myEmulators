@@ -44,7 +44,7 @@ void Hardware::init() {
 void Hardware::CPU_RUN() {
     // fetch cycle opcode
     opcode = ((M[PC] << 8) | M[PC+1]);
-    cout << "Opcode is: 0x" << hex << opcode << endl;
+    //cout << "Opcode is: 0x" << hex << opcode << endl;
 
     // decode opcode
     switch (opcode & 0xF000) {
@@ -219,7 +219,6 @@ void Hardware::CPU_RUN() {
 
         for (int gy = 0; gy < N_height; gy++) {
             int scanline = M[AP + gy];
-            int selectBit = 0x80;
 
             for (int gx = 0; gx < 8; gx++) {
 
@@ -228,11 +227,10 @@ void Hardware::CPU_RUN() {
                     if (display[(VX + gx) % 64][(VY + gy) % 32] == 1) {
                         R[0xF] = 1;
                     }
-                    if ((scanline & selectBit) != 0) {
+                    if ((scanline & (0x80 >> gx)) != 0) {
                         display[(VX + gx) % 64][(VY + gy) % 32] ^= 1;
                     }
                 }
-                selectBit >>= 1;
             }
         }
         PC += 2;

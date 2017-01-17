@@ -1,7 +1,6 @@
 #ifndef HARDWARE_H
 #define HARDWARE_H
 
-#include "Hardware.h"
 #include <string>
 
 using namespace std;
@@ -15,6 +14,7 @@ public:
     bool needsReDraw();
     void removeDrawFlag();
     unsigned char display[64][32];   // Display, default size 64x32
+    unsigned char peripheral[16];   // Peripheral Device
 
 protected:
 
@@ -29,7 +29,7 @@ private:
 
     unsigned char delay_timer;      // Delay Timer
     unsigned char sound_timer;      // Sound Timer
-    unsigned char peripheral[16];   // Peripheral Device
+
     bool drawFlag = false;
 };
 

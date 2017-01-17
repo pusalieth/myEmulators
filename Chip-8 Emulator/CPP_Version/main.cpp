@@ -7,6 +7,7 @@
 #include <iostream>
 #include <SDL/SDL.h>
 #include <Hardware.h>
+#include <Keyboard.h>
 #include <string>
 #include <thread>
 
@@ -14,33 +15,49 @@ using namespace std;
 
 // initialize Hardware Object
 Hardware chip8;
+Keyboard keyboard;
 
 int main(int argc, char **argv) {
 
     // Initialize the Chip8 system
     chip8.init();
+
     // Load the game into the memory
-    string filename = "../../pong2.c8";
-    chip8.loadProgram(filename);
+    chip8.loadProgram(argv[1]);
 
     // make sure SDL cleans up before exit
     atexit(SDL_Quit);
 
     // create a new window
     SDL_Init( SDL_INIT_EVERYTHING );
-    SDL_Event event;
-    int channels = 1;
+
+    //int channels = 1;
     int img_width = 64;
     int img_height = 32;
-    int scale = 10;
-    SDL_Surface* window = SDL_SetVideoMode(img_width*scale, img_height*scale, 8, SDL_HWSURFACE);
+    int scale = 12;
+    SDL_Surface* window = SDL_SetVideoMode(img_width*scale, img_height*scale+10, 8, SDL_HWSURFACE);
 
     freopen( "CON", "w", stdout );
     freopen( "CON", "w", stderr );
 
+    clock_t start = clock ();
+    clock_t timeElapsed;
+    unsigned msElapsed;
+
     // Run Program
-    while(true) {
-        chip8.CPU_RUN();
+    while(1) {
+        timeElapsed = clock() - start;
+        msElapsed = timeElapsed / (CLOCKS_PER_SEC / 1000);
+
+        if(msElapsed >= 2) {
+            start = clock ();
+            chip8.CPU_RUN();
+        }
+
+        keyboard.getKey(&chip8);
+        if(keyboard.close()) {
+            break;
+        }
 
         if(chip8.needsReDraw()) {
             chip8.removeDrawFlag();
@@ -64,13 +81,10 @@ int main(int argc, char **argv) {
 
                     // clear window
                     //SDL_FillRect(window, 0, SDL_MapRGB(window->format, 0, 0, 0));
-
-                    // Update window
-                    SDL_Flip(window);
                 }
             }
+            SDL_Flip(window);
         }
-        SDL_Delay(1);
     }
 
     return 0;

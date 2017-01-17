@@ -1,1 +1,1 @@
-../../pong2.c8 was read correctly
+C:\Users\Data\Desktop\Chip-8 Emulator\CPP_Version\bin\Release\PONG.c8 was read correctly

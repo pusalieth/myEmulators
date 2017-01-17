@@ -13,7 +13,7 @@ public:
     unsigned char** getDisplay();
     bool needsReDraw();
     void removeDrawFlag();
-    unsigned char display[64][32];   // Display, default size 64x32
+    unsigned char display[64][32];   // Display, default size 64x32 width*height
     unsigned char peripheral[16];   // Peripheral Device
 
 protected:

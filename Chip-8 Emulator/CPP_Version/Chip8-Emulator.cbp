@@ -48,8 +48,10 @@
 		</Linker>
 		<Unit filename="cb.bmp" />
 		<Unit filename="include/Hardware.h" />
+		<Unit filename="include/Keyboard.h" />
 		<Unit filename="main.cpp" />
 		<Unit filename="src/Hardware.cpp" />
+		<Unit filename="src/Keyboard.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

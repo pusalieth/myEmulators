@@ -212,25 +212,27 @@ void Hardware::CPU_RUN() {
         // Read image from I
         int VX = R[(opcode & 0x0F00) >> 8];
         int VY = R[(opcode & 0x00F0) >> 4];
-        int N_height = opcode & 0x000F;
+        int N = opcode & 0x000F;
 
         // Clear Collision Flag
         R[0xF] = 0;
 
-        for (int gy = 0; gy < N_height; gy++) {
+        for (int gy = 0; gy < N; gy++) {
             int scanline = M[AP + gy];
+            int selectBit = 0x80;
 
             for (int gx = 0; gx < 8; gx++) {
+                int pixel = scanline & selectBit;
 
-                if (scanline != 0) {
+                // draw pixel
+                if(pixel != 0) {
                     // Collision
-                    if (display[(VX + gx) % 64][(VY + gy) % 32] == 1) {
+                    if (display[VX + gx][VY + gy] == 1) {
                         R[0xF] = 1;
                     }
-                    if ((scanline & (0x80 >> gx)) != 0) {
-                        display[(VX + gx) % 64][(VY + gy) % 32] ^= 1;
-                    }
+                    display[VX + gx][VY + gy] ^= 1;
                 }
+                selectBit >>= 1;
             }
         }
         PC += 2;

@@ -31,28 +31,18 @@ int main(int argc, char **argv) {
     // create a new window
     SDL_Init( SDL_INIT_EVERYTHING );
 
-    //int channels = 1;
     int img_width = 64;
     int img_height = 32;
     int scale = 12;
-    SDL_Surface* window = SDL_SetVideoMode(img_width*scale, img_height*scale+10, 8, SDL_HWSURFACE);
+    SDL_Surface* window = SDL_SetVideoMode(img_width*scale, img_height*scale, 8, SDL_HWSURFACE);
+    SDL_Rect rect;
 
     freopen( "CON", "w", stdout );
     freopen( "CON", "w", stderr );
 
-    clock_t start = clock ();
-    clock_t timeElapsed;
-    unsigned msElapsed;
-
     // Run Program
     while(1) {
-        timeElapsed = clock() - start;
-        msElapsed = timeElapsed / (CLOCKS_PER_SEC / 1000);
-
-        if(msElapsed >= 2) {
-            start = clock ();
             chip8.CPU_RUN();
-        }
 
         keyboard.getKey(&chip8);
         if(keyboard.close()) {
@@ -61,15 +51,8 @@ int main(int argc, char **argv) {
 
         if(chip8.needsReDraw()) {
             chip8.removeDrawFlag();
-
-            SDL_Rect rect;
-            rect.x = 0;
-            rect.y = 0;
-            rect.h = 64*scale;
-            rect.w = 64*scale;
-
-            for(int gy = 0; gy < 32; gy++) {
-                for(int gx = 0; gx < 64; gx++) {
+            for(int gy = 0; gy < img_height; gy++) {
+                for(int gx = 0; gx < img_width; gx++) {
                     rect.x = gx*scale;
                     rect.y = gy*scale;
                     rect.w = scale;
@@ -84,6 +67,7 @@ int main(int argc, char **argv) {
                 }
             }
             SDL_Flip(window);
+            SDL_Delay(8);
         }
     }
 

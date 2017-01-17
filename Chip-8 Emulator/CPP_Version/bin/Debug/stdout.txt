@@ -1,1 +1,1 @@
-C:\Users\Data\Desktop\Chip-8 Emulator\CPP_Version\bin\Debug\PONG.c8 was read correctly
+C:\Users\Data\Desktop\Chip-8 Emulator\CPP_Version\bin\Debug\pong2.c8 was read correctly

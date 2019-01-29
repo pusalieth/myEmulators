@@ -1,10 +1,7 @@
+
 /*
  * GPLv3
  */
-package Emulator;
-
-import Chip8.Chip8_Frame;
-import Chip8.Hardware;
 import java.io.File;
 import java.util.Scanner;
 
@@ -17,7 +14,7 @@ public class Main extends Thread {
     private Hardware chip8;
     private Chip8_Frame frame;
 
-    public Main() {
+    public Main(String argv) {
         chip8 = new Hardware();
 
         // Normal Display Dimensions are 64x32
@@ -37,35 +34,40 @@ public class Main extends Thread {
         chip8.init();
 
         // List Programs
-        System.out.println("Please select a game File");
-        File folder = new File("../");
-        File[] listOfFiles = folder.listFiles();
-        String[] listOfGames = new String[30];
+        if (argv.charAt(0) != '/') {
+            System.out.println("Please select a game File");
+            File folder = new File(argv);
+            File[] listOfFiles = folder.listFiles();
+            String[] listOfGames = new String[30];
 
-        int x = 0;
-        for (int i = 0; i < listOfFiles.length; i++) {
-            String currentFileName = listOfFiles[i].getName();
-            int fileNameLength = currentFileName.length();
-            String fileExtension = currentFileName.substring(fileNameLength - 3, fileNameLength);
-            if (listOfFiles[i].isFile() && (".c8".equals(fileExtension))) {
-                listOfGames[x] = currentFileName;
-                x++;
-                System.out.print(x + ". " + currentFileName);
-                if (x % 2 == 0) {
-                    System.out.println();
-                } else {
-                    System.out.print("\t");
+            int x = 0;
+            for (int i = 0; i < listOfFiles.length; i++) {
+                String currentFileName = listOfFiles[i].getName();
+                int fileNameLength = currentFileName.length();
+                String fileExtension = currentFileName.substring(fileNameLength - 3, fileNameLength);
+                if (listOfFiles[i].isFile() && (".c8".equals(fileExtension))) {
+                    listOfGames[x] = currentFileName;
+                    x++;
+                    System.out.print(x + ". " + currentFileName);
+                    if (x % 2 == 0) {
+                        System.out.println();
+                    } else {
+                        System.out.print("\t");
+                    }
                 }
+
             }
 
+            System.out.println();
+            Scanner input2 = new Scanner(System.in);
+            int fileChoice = input2.nextInt();
+            System.out.println("Loading Game: " + listOfGames[fileChoice] + "....");
+
+            chip8.loadProgram(argv + listOfGames[fileChoice - 1]);
+        } else {
+            chip8.loadProgram(argv);
         }
 
-        System.out.println();
-        Scanner input2 = new Scanner(System.in);
-        int fileChoice = input2.nextInt();
-        System.out.println("Loading Game: " + listOfGames[fileChoice] + "....");
-
-        chip8.loadProgram("../" + listOfGames[fileChoice - 1]);
         frame = new Chip8_Frame(chip8);
     }
 
@@ -103,7 +105,7 @@ public class Main extends Thread {
     }
 
     public static void main(String[] args) {
-        Main main = new Main();
+        Main main = new Main(args[0]);
         main.start();
     }
 }

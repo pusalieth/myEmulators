@@ -6,10 +6,19 @@
         {
             "label": "java compile",
             "type": "shell",
-            "command": "cd Java_Version; javac src/* -d build/; java -cp build/ Main ../",
+            "command": "javac src/* -d build/",
             "group": {
                 "kind": "build",
-                "isDefault": false
+                "isDefault": true
+            }
+        },
+        {
+            "label": "java run",
+            "type": "shell",
+            "command": "java -cp build/ Main ../",
+            "group": {
+                "kind": "test",
+                "isDefault": true
             }
         }
     ]

@@ -17,19 +17,23 @@ public class Main extends Thread {
     public Main(String argv) {
         chip8 = new Hardware();
 
-        // Normal Display Dimensions are 64x32
-        System.out.println("Please select a resolution");
-        for (int i = 1; i <= 12; i++) {
-            System.out.print(i + ". \"" + (64 * (i + 9)) + "x" + (32 * (i + 9)) + "\"");
-            System.out.print("\t");
-            i++;
-            System.out.println(i + ". \"" + (64 * (i + 9)) + "x" + (32 * (i + 9)) + "\"");
-        }
+        if (argv.contains("debug")) {
+            
+        } else {
+            // Normal Display Dimensions are 64x32
+            System.out.println("Please select a resolution");
+            for (int i = 1; i <= 12; i++) {
+                System.out.print(i + ". \"" + (64 * (i + 9)) + "x" + (32 * (i + 9)) + "\"");
+                System.out.print("\t");
+                i++;
+                System.out.println(i + ". \"" + (64 * (i + 9)) + "x" + (32 * (i + 9)) + "\"");
+            }
 
-        System.out.println();
-        Scanner input = new Scanner(System.in);
-        int scale = input.nextInt();
-        chip8.setScale(scale + 9);
+            System.out.println();
+            Scanner input = new Scanner(System.in);
+            int scale = input.nextInt();
+            chip8.setScale(scale + 9);
+        }
 
         chip8.init();
 

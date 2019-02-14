@@ -29,7 +29,7 @@ class CONTROL_UNIT:
         opcode = (MSB_Opcode << 8) | LSB_Opcode
         opcode_prefix = opcode & 0xF000
         print(hex(opcode))
-        if(opcode_prefix & 0x000):
+        if(opcode_prefix & 0x00FF):
             if(opcode == 0x00EE):
                 print("Unsupported opcode 0x00EE %s" % hex(opcode))
             elif(opcode == 0x00E0):
@@ -45,8 +45,8 @@ class CONTROL_UNIT:
         elif(opcode_prefix & 0x2000):
             # call subroutine at opcode & 0x0FFF
             self.RAM[self.SP] = self.PC
-            print(self.RAM[opcode & 0x0FFF])
-            self.PC = (opcode & 0x0FFF) - 2
+            self.PC = (opcode & 0x0FFF)
+            return
         elif(opcode_prefix & 0x3000):
             vx = (opcode & 0x0F00)
             if(self.REGISTERS[vx] == (opcode & 0x00FF)):
@@ -60,9 +60,9 @@ class CONTROL_UNIT:
             vy = (opcode & 0x00F0)
             if(self.REGISTERS[vx] == self.REGISTERS[vy]):
                 self.PC += 2
-        elif(opcode_prefix & 0x6000):opcode & 0x0FFF
+        elif(opcode_prefix & 0x6000):
+            opcode & 0x0FFF
             vx = (opcode & 0x0F00)
-            print(vx)
             self.REGISTERS[vx] = (opcode & 0x00FF)
         elif(opcode_prefix & 0x7000):
             vx = (opcode & 0x0F00)
@@ -133,6 +133,7 @@ class CONTROL_UNIT:
             self.I = (opcode & 0x0FFF)
         elif(opcode_prefix & 0xB000):
             self.PC = self.REGISTERS[0] + (opcode & 0x0FFF)
+            return
         elif(opcode_prefix & 0xC000):
             random.seed()
             vx = (opcode & 0x0F00)
@@ -144,6 +145,7 @@ class CONTROL_UNIT:
             print("Unsupported opcode %s" % hex(opcode))
 
         self.PC += 2
+        print(self.PC)
 
 
 class IO:

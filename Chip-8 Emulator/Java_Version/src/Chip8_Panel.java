@@ -1,8 +1,7 @@
+
 /*
  * GPLv3
  */
-package Chip8;
-
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JPanel;
@@ -12,7 +11,7 @@ import javax.swing.JPanel;
  * @author Jake Pring
  */
 public class Chip8_Panel extends JPanel {
-    
+
     private Hardware chip8;
     private int scale = 0;
 
@@ -29,8 +28,8 @@ public class Chip8_Panel extends JPanel {
                     g.setColor(Color.WHITE);
                 else
                     g.setColor(Color.BLACK);
-                
-                g.fillRect(x*scale, y*scale, scale, scale);
+
+                g.fillRect(x * scale, y * scale, scale, scale);
             }
         }
     }

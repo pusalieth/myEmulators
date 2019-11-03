@@ -1,7 +1,7 @@
+
 /*
  * GLPv3
  */
-package Chip8;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
